@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+        <meta name="color-scheme" content="light dark">
+        <link rel="stylesheet" href="css/index.css">
+        <title>SMS Verification</title>
+    </head>
+    <body>
+        <div class="app">
+            <h1>SMS Verification</h1>
+            <div id="deviceready">
+                <label>Phone Number</label>
+                <input type="text" id="phoneNumber"/>
+                <div id="recaptcha-container"></div>
+                <button id="verify" onclick="PhoneAuth()">Send Code</button>
+                <input type="text" id="verificationCode"/>
+                <button onclick="codeverify()">Verify</button>
+            </div>
+        </div>
+        <script src="js/sms.js"></script>
+        <script src="cordova.js"></script>
+        <script src="js/index.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
+        <script>
+            var firebaseConfig = {
+                apiKey: "AIzaSyByyHShy8yM-Dvq_aKpkzmEx43HCZhl3GU",
+                authDomain: "cordovaauthontication.firebaseapp.com",
+                projectId: "cordovaauthontication",
+                storageBucket: "cordovaauthontication.appspot.com",
+                messagingSenderId: "127819839879",
+                appId: "1:127819839879:web:84f34fa5c9419a3b25bb22",
+                measurementId: "G-35H92HNX0S"
+            };
+
+            firebase.initializeApp(firebaseConfig);
+        </script>
+        <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-auth.js"></script>
+        <script src="https://cdn.firebase.com/libs/firebaseui/3.0.0/firebaseui.js"></script>
+
+      
+    </body>
+</html>

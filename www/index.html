@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+        <meta name="color-scheme" content="light dark">
+        <link rel="stylesheet" href="css/index.css">
+        <title>Hello World</title>
+    </head>
+    <body>
+        <div class="app">
+            <h1>Apache Cordova</h1>
+            <div id="deviceready">
+                <button id="sms" onclick="SMSPage()">SMS</button>
+                <button id="sms" onclick="FacebookPage()">Facebook Login</button>
+            </div>
+        </div>
+        <script src="cordova.js"></script>
+        <script src="js/index.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-messaging.js"></script>
+        <script>
+
+            var firebaseConfig = {
+                apiKey: "AIzaSyByyHShy8yM-Dvq_aKpkzmEx43HCZhl3GU",
+                authDomain: "cordovaauthontication.firebaseapp.com",
+                projectId: "cordovaauthontication",
+                storageBucket: "cordovaauthontication.appspot.com",
+                messagingSenderId: "127819839879",
+                appId: "1:127819839879:web:84f34fa5c9419a3b25bb22",
+                measurementId: "G-35H92HNX0S"
+            };
+
+            firebase.initializeApp(firebaseConfig);
+
+            // const messaging = firebase.messaging();
+
+            // messaging.setBackgroundMessageHandler(function(payload) {
+            //     console.log("Received background message ", payload);
+            //     // Customize notification here
+            //     const notificationTitle = "Background Message Title";
+            //     const notificationOptions = {
+            //         body: "Background Message body.",
+            //         icon: "/itwonders-web-logo.png"
+            //     };
+
+            //     return self.registration.showNotification(
+            //         notificationTitle,
+            //         notificationOptions
+            //     );
+            // });
+
+            var messaging1 = firebase.messaging();
+            messaging1.requestPermission().then(function () {
+                    console.log('Notification permission granted.');
+                    return messaging1.getToken();
+                }).then(function (token) {
+                    console.log(token);
+                }).catch(function (err) {
+                    console.log('Unable to get permission to notify.', err);
+                });
+
+            var enableForegroundNotification = true;
+            messaging1.onMessage(function (payload) {
+                console.log('Message received. ', payload);
+                if (enableForegroundNotification) {
+                    var notification = payload.notification;
+                    navigator.serviceWorker.getRegistrations().then((registration) => {
+                            registration[0].showNotification(notification.title);
+                    });
+                }
+            });
+        </script>
+    </body>
+</html>
